@@ -1,7 +1,7 @@
 
 --[[ because king is a fucking moron
 ]]
-_G.XathenaGradient = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(76, 28, 138)), ColorSequenceKeypoint.new(1, Color3.fromRGB(131, 45, 161))}
+	_G.XathenaGradient = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(76, 28, 138)), ColorSequenceKeypoint.new(1, Color3.fromRGB(131, 45, 161))}
 local uis = game:GetService("UserInputService")
 local run = game:GetService("RunService")
 
@@ -314,7 +314,7 @@ function ret:Library(Name)
 		end
 
 		function self:Toggle(name,b,f)
-			local onc = _G.XathenaGradient --ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(46, 59, 145)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(39, 49, 126))}
+			--local _G.XathenaGradient = _G.XathenaGradient --ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(46, 59, 145)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(39, 49, 126))}
 			local ofc = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(86, 87, 85)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(78, 77, 73))}
 			local tog = b
 			
@@ -342,7 +342,7 @@ function ret:Library(Name)
 			TextButton.TextStrokeTransparency = 1
 			TextButton.TextXAlignment = Enum.TextXAlignment.Left
 
-			UIGradient.Color = ((tog and onc) or (not tog and ofc))
+			UIGradient.Color = ((tog and _G.XathenaGradient) or (not tog and ofc))
 			UIGradient.Rotation = 90
 			UIGradient.Parent = Toggle
 			
@@ -351,7 +351,7 @@ function ret:Library(Name)
 			TextButton.MouseButton1Down:Connect(function()
 				 pcall(task.spawn, f, not tog)
 				tog = not tog
-				UIGradient.Color = ((tog and onc) or (not tog and ofc))
+				UIGradient.Color = ((tog and _G.XathenaGradient) or (not tog and ofc))
 			end)
 			resize()
 		end
@@ -840,7 +840,7 @@ function ret:Library(Name)
 		function self:ToggleDropdown(n,de,fu)
 			local self2 = {}
 
-			local onc = _G.XathenaGradient
+			--local _G.XathenaGradient = _G.XathenaGradient
 			local ofc = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(86, 87, 85)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(78, 77, 73))}
 			local togg = de
 
@@ -909,14 +909,14 @@ function ret:Library(Name)
 			UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 			UIListLayout.Padding = UDim.new(0, 4)
 
-			UIGradient_2.Color = ((togg and onc) or (not togg and ofc))
+			UIGradient_2.Color = ((togg and _G.XathenaGradient) or (not togg and ofc))
 			UIGradient_2.Rotation = 90
 			UIGradient_2.Parent = Dropdown
 	
 			TextLabel.MouseButton1Down:Connect(function()
 				pcall(task.spawn, fu, not togg)
 				togg = not togg
-				UIGradient_2.Color = ((togg and onc) or (not togg and ofc))
+				UIGradient_2.Color = ((togg and _G.XathenaGradient) or (not togg and ofc))
 			end)
 
 			if de then pcall(task.spawn, fu, de) end
@@ -970,7 +970,7 @@ function ret:Library(Name)
 			end
 
 			function self2:Toggle(name,b,f)
-				local onc = _G.XathenaGradient --ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(46, 59, 145)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(39, 49, 126))}
+				--local _G.XathenaGradient = _G.XathenaGradient --ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(46, 59, 145)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(39, 49, 126))}
 				local ofc = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(86, 87, 85)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(78, 77, 73))}
 				local tog = b
 				
@@ -998,7 +998,7 @@ function ret:Library(Name)
 				TextButton.TextStrokeTransparency = 1
 				TextButton.TextXAlignment = Enum.TextXAlignment.Left
 	
-				UIGradient.Color = ((tog and onc) or (not tog and ofc))
+				UIGradient.Color = ((tog and _G.XathenaGradient) or (not tog and ofc))
 				UIGradient.Rotation = 90
 				UIGradient.Parent = Toggle
 				
@@ -1007,7 +1007,7 @@ function ret:Library(Name)
 				TextButton.MouseButton1Down:Connect(function()
 					pcall(task.spawn, f, not tog)
 					tog = not tog
-					UIGradient.Color = ((tog and onc) or (not tog and ofc))
+					UIGradient.Color = ((tog and _G.XathenaGradient) or (not tog and ofc))
 				end)
 			end
 	
@@ -1332,7 +1332,7 @@ function ret:Library(Name)
 			function self2:Toggle(name,b,f)
 				g = g + 1
 				if g <= 2 then
-					local onc = _G.XathenaGradient --ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(46, 59, 145)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(39, 49, 126))}
+					--local _G.XathenaGradient = _G.XathenaGradient --ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(46, 59, 145)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(39, 49, 126))}
 					local ofc = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(86, 87, 85)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(78, 77, 73))}
 					local tog = b
 					
@@ -1360,7 +1360,7 @@ function ret:Library(Name)
 					TextButton.TextStrokeTransparency = 1
 					TextButton.TextXAlignment = Enum.TextXAlignment.Left
 		
-					UIGradient.Color = ((tog and onc) or (not tog and ofc))
+					UIGradient.Color = ((tog and _G.XathenaGradient) or (not tog and ofc))
 					UIGradient.Rotation = 90
 					UIGradient.Parent = Toggle
 					
@@ -1369,7 +1369,7 @@ function ret:Library(Name)
 					TextButton.MouseButton1Down:Connect(function()
 						pcall(task.spawn, f, not tog) 
 						tog = not tog
-						UIGradient.Color = ((tog and onc) or (not tog and ofc))
+						UIGradient.Color = ((tog and _G.XathenaGradient) or (not tog and ofc))
 					end)
 				end
 			end
