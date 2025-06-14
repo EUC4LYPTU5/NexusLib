@@ -1,6 +1,7 @@
 
 --[[ because king is a fucking moron
 ]]
+_G.XathenaGradient = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(76, 28, 138)), ColorSequenceKeypoint.new(1, Color3.fromRGB(131, 45, 161))}
 local uis = game:GetService("UserInputService")
 local run = game:GetService("RunService")
 
@@ -36,7 +37,6 @@ function ret:Library(Name)
 	local UITextSizeConstraint = Instance.new("UITextSizeConstraint")
 	local Notifications = Instance.new("Frame")
 	local Blur = Instance.new("BlurEffect",game:GetService("Lighting"))
-	_G.XathenaGradient = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(76, 28, 138)), ColorSequenceKeypoint.new(1, Color3.fromRGB(131, 45, 161))}
 
 	Blur.Name = "Athena Blur"
 	Blur.Enabled = false
