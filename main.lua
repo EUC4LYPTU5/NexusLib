@@ -1655,4 +1655,32 @@ function ret:Library(Name)
 	return ui
 end
 
+_G.SetXathenaGradient = function(newGradient)
+    if typeof(newGradient) ~= "ColorSequence" then
+        warn("SetXathenaGradient: Argument must be a ColorSequence.")
+        return
+    end
+
+    local CoreGui = game:GetService("CoreGui")
+    local ui = CoreGui:FindFirstChild("Athena ui Remake")
+    if not ui then
+        warn("SetXathenaGradient: UI not found.")
+        return
+    end
+
+    local oldGradient = _G.XathenaGradient
+    _G.XathenaGradient = newGradient
+
+    local updated = 0
+    for _, obj in ipairs(ui:GetDescendants()) do
+        if obj:IsA("UIGradient") and tostring(obj.Color) == tostring(oldGradient) then
+            obj.Color = newGradient
+            updated += 1
+        end
+    end
+
+    print("Gradient Updated", updated, "UIGradient(s)")
+end
+
+
 return ret, settings
