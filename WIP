@@ -42,20 +42,6 @@ function ret:Library(Name)
 	Blur.Enabled = false
 	Blur.Size = 24
 
--- UICorner template (you can preset defaults here if you like)
-local UICornerTemplate = Instance.new("UICorner")
-UICornerTemplate.CornerRadius = UDim.new(0, 8)  -- default, but will be overridden
-
--- AddUICorner now takes (targetGuiObject, cornerRadiusUDim)
-local function AddUICorner(targetGuiObject, cornerRadius)
-    local corner = UICornerTemplate:Clone()
-    corner.CornerRadius = cornerRadius or UDim.new(0, 8)
-    corner.Parent = targetGuiObject
-    return corner
-end
-
-
-
 	Notifications.Name = "Notifications"
 	Notifications.Parent = aui
 	Notifications.AnchorPoint = Vector2.new(1, 0)
@@ -203,10 +189,14 @@ end
 
 	function ui:Window(rbrbrb)
 		local self = {}
-
+    local UiCorner1 = Instance.new("UICorner")
+		local UiCorner2 = Instance.new("UICorner")
+		local UiCorner3 = Instance.new("UICorner")
+		local UiCorner4 = Instance.new("UICorner")
+		local UiCorner5 = Instance.new("UICorner")
+		local UiCorner6 = Instance.new("UICorner")
 		local Window1 = Instance.new("Frame")
 		local UIGradient = Instance.new("UIGradient")
-    local UICorner = Instance.new("UICorner")
 		local Top = Instance.new("Frame")
 		local TextLabel = Instance.new("TextLabel")
 		local Min = Instance.new("TextButton")
@@ -214,8 +204,7 @@ end
 		local UIGradient_2 = Instance.new("UIGradient")
 		local Holder = Instance.new("Frame")
 		local UIPadding = Instance.new("UIPadding")
-
-    AddUICorner(Window1, 0, 5)
+    
 		Window1.Name = "Window"..tostring(m)
 		Window1.Parent = aui
 		Window1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -233,6 +222,8 @@ end
 
 		Top.Name = "Top"
 		Top.Parent = Window1
+		UiCorner1.Parent = Top
+		UiCorner1.CornerRadius = UDim.new(0, 3)
 		Top.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Top.BackgroundTransparency = 0.350
 		Top.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -252,9 +243,11 @@ end
 		TextLabel.TextSize = 20.000
 		TextLabel.TextStrokeTransparency = 1
 		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
-
+     
 		Min.Name = "Min"
 		Min.Parent = Top
+		UiCorner2.Parent = Min
+		UiCorner2.CornerRadius = UDim.new(0, 6)
 		Min.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 		Min.BorderColor3 = Color3.fromRGB(51, 51, 51)
 		Min.BorderSizePixel = 2
@@ -265,10 +258,11 @@ end
 		Min.Text = "-"
 		Min.TextColor3 = Color3.fromRGB(255, 255, 255)
 		Min.TextSize = 39.000
-    AddUICorner(Min, 0, 3)
 
 		Max.Name = "Max"
 		Max.Parent = Top
+		UiCorner3.Parent = Max
+		UiCorner3.CornerRadius = UDim.new(0, 6)
 		Max.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 		Max.BorderColor3 = Color3.fromRGB(51, 51, 51)
 		Max.BorderSizePixel = 2
@@ -279,7 +273,6 @@ end
 		Max.TextColor3 = Color3.fromRGB(255, 255, 255)
 		Max.TextSize = 35.000
 		Max.TextWrapped = true
-    AddUICorner(Max, 0, 3)
 
 		UIGradient_2.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(38, 38, 38)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(28, 28, 28))}
 		UIGradient_2.Rotation = 90
@@ -333,15 +326,19 @@ end
 
 		function self:Toggle(name,b,f)
 			--local _G.XathenaGradient = _G.XathenaGradient --ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(46, 59, 145)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(39, 49, 126))}
-			local ofc = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(86, 87, 85)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(78, 77, 73))}
+			--local ofc = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(86, 87, 85)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(78, 77, 73))}
+		local ofc = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(36, 36, 36)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(36, 36, 36))}
 			local tog = b
 			
 			local Toggle = Instance.new("Frame")
+			Local UiCorner = Instance.new("UICorner")
 			local TextButton = Instance.new("TextButton")
 			local UIGradient = Instance.new("UIGradient")
-      AddUICorner(TextButton, 0, 5)
+
 			Toggle.Name = "Toggle"
 			Toggle.Parent = Holder
+			UiCorner.Parent = Toggle
+			UiCorner.CornerRadius = UDim.new(0, 6)
 			Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			Toggle.BorderColor3 = Color3.fromRGB(23, 25, 52)
 			Toggle.Size = UDim2.new(0, 154, 0, 20)
@@ -378,11 +375,11 @@ end
 			local Button = Instance.new("Frame")
 			local TextButton = Instance.new("TextButton")
 			local UIGradient = Instance.new("UIGradient")
-
-      AddUICorner(TextButton, 0, 5)
-
+      local UICorner = Instance.new("UICorner")
 			Button.Name = "Button"
 			Button.Parent = Holder
+			UICorner.Parent = Button
+			UICorner.CornerRadius = UDim.new(0, 6)
 			Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			Button.BorderColor3 = Color3.fromRGB(23, 25, 52)
 			Button.Size = UDim2.new(0, 154, 0, 20)
@@ -401,7 +398,7 @@ end
 			TextButton.TextStrokeTransparency = 1
 			TextButton.TextXAlignment = Enum.TextXAlignment.Left
 
-			UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(86, 87, 85)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(78, 77, 73))}
+			UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(36, 36, 36)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(36, 36, 36))}
 			UIGradient.Rotation = 90
 			UIGradient.Parent = Button
 
@@ -415,9 +412,12 @@ end
 			local Keybind = Instance.new("Frame")
 			local TextButton = Instance.new("TextButton")
 			local UIGradient = Instance.new("UIGradient")
-      AddUICorner(TextButton, 0, 5)
+			local UICorner = Instance.new("UICorner")
+
 			Keybind.Name = "Keybind"
 			Keybind.Parent = Holder
+			UICorner.Parent = Keybind
+      UICorner.CornerRadius = UDim.new(0, 6)
 			Keybind.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			Keybind.BorderColor3 = Color3.fromRGB(23, 25, 52)
 			Keybind.Size = UDim2.new(0, 154, 0, 20)
@@ -435,7 +435,7 @@ end
 			TextButton.TextSize = 15.000
 			TextButton.TextStrokeTransparency = 1
 
-			UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(86, 87, 85)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(78, 77, 73))}
+			UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(36, 36, 36)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(36, 36, 36))}
 			UIGradient.Rotation = 90
 			UIGradient.Parent = Keybind
 
@@ -503,9 +503,6 @@ end
 			local UIGradient = Instance.new("UIGradient")
 			local Slider_2 = Instance.new("TextButton")
 			local OnToggleGradient = Instance.new("UIGradient")
-      
-      AddUICorner(Slider_2, 0, 5)
-      AddUICorner(Slider, 0, 5)
 
 			Slider.Name = "Slider"
 			Slider.Parent = Holder
@@ -591,8 +588,6 @@ end
 			local UIGradient = Instance.new("UIGradient")
 			local TextBox = Instance.new("TextBox")
 			local TextLabel = Instance.new("TextLabel")
-      
-      AddUICorner(TextBox, 0, 5)
 
 			Textbox.Name = "Textbox"
 			Textbox.Parent = Holder
@@ -881,9 +876,6 @@ end
 
 			local openg = false
 
-
-      AddUICorner(ImageButton, 0, 5)
-      AddUICorner(TextLabel, 0, 5)
 			Dropdown.Name = "Dropdown"
 			Dropdown.Parent = Holder
 			Dropdown.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1005,9 +997,7 @@ end
 				local Toggle = Instance.new("Frame")
 				local TextButton = Instance.new("TextButton")
 				local UIGradient = Instance.new("UIGradient")
-	      
-        AddUICorner(TextButton, 0, 5)
-
+	
 				Toggle.Name = "Toggle"
 				Toggle.Parent = DFrame
 				Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1045,8 +1035,7 @@ end
 				local Button = Instance.new("Frame")
 				local TextButton = Instance.new("TextButton")
 				local UIGradient = Instance.new("UIGradient")
-	      
-        AddUICorner(TextButton, 0, 5)
+	
 				Button.Name = "Button"
 				Button.Parent = DFrame
 				Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1080,8 +1069,7 @@ end
 				local Keybind = Instance.new("Frame")
 				local TextButton = Instance.new("TextButton")
 				local UIGradient = Instance.new("UIGradient")
-	      AddUICorner(Keybind, 0, 5)
-        AddUICorner(TextButton, 0, 5)
+	
 				Keybind.Name = "Keybind"
 				Keybind.Parent = DFrame
 				Keybind.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1135,11 +1123,7 @@ end
 				local UIGradient = Instance.new("UIGradient")
 				local Slider_2 = Instance.new("TextButton")
 				local OnToggleGradient = Instance.new("UIGradient")
-	      
-        AddUICorner(SliderFrame, 0, 5)
-        AddUICorner(Slider, 0, 5)
-        --AddUICorner(SliderFra, 0, 5)
-
+	
 				Slider.Name = "Slider"
 				Slider.Parent = DFrame
 				Slider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1223,10 +1207,7 @@ end
 				local UIGradient = Instance.new("UIGradient")
 				local TextBox = Instance.new("TextBox")
 				local TextLabel = Instance.new("TextLabel")
-	      
-        AddUICorner(Textbox, 0, 5)
-         AddUICorner(TextLabel, 0, 5)
-
+	
 				Textbox.Name = "Textbox"
 				Textbox.Parent = DFrame
 				Textbox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1355,8 +1336,6 @@ end
 			local SplitHolder = Instance.new("Frame")
 			local UIGradient = Instance.new("UIGradient")
 			local UIListLayout = Instance.new("UIListLayout")
-      
-       AddUICorner(SplitHolder, 0, 5)
 
 			SplitHolder.Name = "SplitFrame"
 			SplitHolder.Parent = Holder
@@ -1380,10 +1359,7 @@ end
 					local Toggle = Instance.new("Frame")
 					local TextButton = Instance.new("TextButton")
 					local UIGradient = Instance.new("UIGradient")
-		      
-                 AddUICorner(Toggle, 0, 5)
-                  AddUICorner(TextButton , 0, 5)
-
+		
 					Toggle.Name = "Toggle"
 					Toggle.Parent = SplitHolder
 					Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1424,8 +1400,6 @@ end
 					local Button = Instance.new("Frame")
 					local TextButton = Instance.new("TextButton")
 					local UIGradient = Instance.new("UIGradient")
-           AddUICorner(Button, 0, 5)
-            AddUICorner(TextButton, 0, 5)
 		
 					Button.Name = "Button"
 					Button.Parent = SplitHolder
@@ -1520,9 +1494,6 @@ end
 					local UIGradient = Instance.new("UIGradient")
 					local Slider_2 = Instance.new("TextButton")
 					local OnToggleGradient = Instance.new("UIGradient")
-
-           AddUICorner(Slider, 0, 5)
-            AddUICorner(SliderFrame, 0, 5)
 		
 					Slider.Name = "Slider"
 					Slider.Parent = SplitHolder
@@ -1610,10 +1581,7 @@ end
 					local UIGradient = Instance.new("UIGradient")
 					local TextBox = Instance.new("TextBox")
 					local TextLabel = Instance.new("TextLabel")
-		      
-    AddUICorner(Textbox, 0, 5)
-     AddUICorner(TextBox, 0, 5)
-     
+		
 					Textbox.Name = "Textbox"
 					Textbox.Parent = SplitHolder
 					Textbox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
