@@ -14,7 +14,7 @@ local settings = {
 	blur = true;
 	disablechat = true;
 	vis = false;
-	togkeybind = Enum.Key.RightShift;
+	togkeybind = Enum.KeyCode.RightShift;
 	togblurtime = 0.75
 
 }
