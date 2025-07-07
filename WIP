@@ -14,6 +14,9 @@ local settings = {
 	blur = true;
 	disablechat = true;
 	vis = false;
+	togkeybind = Enum.Key.RightShift;
+	togblurtime = 0.75
+
 }
 
 function ret:Library(Name)
@@ -135,24 +138,42 @@ function ret:Library(Name)
         end)
 	end
 	
-	uis.InputBegan:Connect(function(m3,m2)
-		if m3.KeyCode == Enum.KeyCode.P and not m2 then
-			settings.vis = not settings.vis
-			for i,v in pairs(aui:GetChildren()) do
-				if v.Name:find("Window") then
-					if settings.vis then
-						v.Visible = true
-						game:GetService('StarterGui'):SetCoreGuiEnabled(Enum.CoreGuiType.Chat, not settings.disablechat)
-						Blur.Enabled = settings.blur
-					else
-						v.Visible = false
-						game:GetService('StarterGui'):SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
-						Blur.Enabled = false
-					end
-				end
+local tweenService = game:GetService("TweenService") -- add this near the top of your script if not already
+local toggblurtime = settings.togblurtime
+uis.InputBegan:Connect(function(m3, m2)
+	if m3.KeyCode == settings.toggleKey and not m2 then
+		settings.vis = not settings.vis
+
+		for i, v in pairs(aui:GetChildren()) do
+			if v.Name:find("Window") then
+				v.Visible = settings.vis
 			end
 		end
-	end)
+
+		-- Chat logic
+		if settings.disablechat then
+			game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Chat, not settings.vis)
+		end
+
+		-- Blur logic
+		if settings.blur then
+			if settings.vis then
+				Blur.Enabled = true
+				tweenService:Create(Blur, TweenInfo.new(toggblurtime, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = 24}):Play()
+			else
+				tweenService:Create(Blur, TweenInfo.new(toggblurtime, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Size = 0}):Play()
+				task.delay(0.4, function()
+					if not settings.vis then
+						Blur.Enabled = false
+					end
+				end)
+			end
+		else
+			Blur.Enabled = false
+		end
+	end
+end)
+
 
 	function ui:Note(Title,Message,Error)
         local Note = NoteSample:Clone()
@@ -189,12 +210,7 @@ function ret:Library(Name)
 
 	function ui:Window(rbrbrb)
 		local self = {}
-    local UiCorner1 = Instance.new("UICorner")
-		local UiCorner2 = Instance.new("UICorner")
-		local UiCorner3 = Instance.new("UICorner")
-		local UiCorner4 = Instance.new("UICorner")
-		local UiCorner5 = Instance.new("UICorner")
-		local UiCorner6 = Instance.new("UICorner")
+
 		local Window1 = Instance.new("Frame")
 		local UIGradient = Instance.new("UIGradient")
 		local Top = Instance.new("Frame")
@@ -204,7 +220,7 @@ function ret:Library(Name)
 		local UIGradient_2 = Instance.new("UIGradient")
 		local Holder = Instance.new("Frame")
 		local UIPadding = Instance.new("UIPadding")
-    
+
 		Window1.Name = "Window"..tostring(m)
 		Window1.Parent = aui
 		Window1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -222,8 +238,6 @@ function ret:Library(Name)
 
 		Top.Name = "Top"
 		Top.Parent = Window1
-		UiCorner1.Parent = Top
-		UiCorner1.CornerRadius = UDim.new(0, 3)
 		Top.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Top.BackgroundTransparency = 0.350
 		Top.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -243,11 +257,9 @@ function ret:Library(Name)
 		TextLabel.TextSize = 20.000
 		TextLabel.TextStrokeTransparency = 1
 		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
-     
+
 		Min.Name = "Min"
 		Min.Parent = Top
-		UiCorner2.Parent = Min
-		UiCorner2.CornerRadius = UDim.new(0, 6)
 		Min.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 		Min.BorderColor3 = Color3.fromRGB(51, 51, 51)
 		Min.BorderSizePixel = 2
@@ -261,8 +273,6 @@ function ret:Library(Name)
 
 		Max.Name = "Max"
 		Max.Parent = Top
-		UiCorner3.Parent = Max
-		UiCorner3.CornerRadius = UDim.new(0, 6)
 		Max.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 		Max.BorderColor3 = Color3.fromRGB(51, 51, 51)
 		Max.BorderSizePixel = 2
@@ -326,19 +336,15 @@ function ret:Library(Name)
 
 		function self:Toggle(name,b,f)
 			--local _G.XathenaGradient = _G.XathenaGradient --ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(46, 59, 145)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(39, 49, 126))}
-			--local ofc = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(86, 87, 85)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(78, 77, 73))}
-		local ofc = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(36, 36, 36)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(36, 36, 36))}
+			local ofc = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(86, 87, 85)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(78, 77, 73))}
 			local tog = b
 			
 			local Toggle = Instance.new("Frame")
-			Local UiCorner = Instance.new("UICorner")
 			local TextButton = Instance.new("TextButton")
 			local UIGradient = Instance.new("UIGradient")
 
 			Toggle.Name = "Toggle"
 			Toggle.Parent = Holder
-			UiCorner.Parent = Toggle
-			UiCorner.CornerRadius = UDim.new(0, 6)
 			Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			Toggle.BorderColor3 = Color3.fromRGB(23, 25, 52)
 			Toggle.Size = UDim2.new(0, 154, 0, 20)
@@ -375,11 +381,9 @@ function ret:Library(Name)
 			local Button = Instance.new("Frame")
 			local TextButton = Instance.new("TextButton")
 			local UIGradient = Instance.new("UIGradient")
-      local UICorner = Instance.new("UICorner")
+
 			Button.Name = "Button"
 			Button.Parent = Holder
-			UICorner.Parent = Button
-			UICorner.CornerRadius = UDim.new(0, 6)
 			Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			Button.BorderColor3 = Color3.fromRGB(23, 25, 52)
 			Button.Size = UDim2.new(0, 154, 0, 20)
@@ -398,7 +402,7 @@ function ret:Library(Name)
 			TextButton.TextStrokeTransparency = 1
 			TextButton.TextXAlignment = Enum.TextXAlignment.Left
 
-			UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(36, 36, 36)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(36, 36, 36))}
+			UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(86, 87, 85)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(78, 77, 73))}
 			UIGradient.Rotation = 90
 			UIGradient.Parent = Button
 
@@ -412,12 +416,9 @@ function ret:Library(Name)
 			local Keybind = Instance.new("Frame")
 			local TextButton = Instance.new("TextButton")
 			local UIGradient = Instance.new("UIGradient")
-			local UICorner = Instance.new("UICorner")
 
 			Keybind.Name = "Keybind"
 			Keybind.Parent = Holder
-			UICorner.Parent = Keybind
-      UICorner.CornerRadius = UDim.new(0, 6)
 			Keybind.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			Keybind.BorderColor3 = Color3.fromRGB(23, 25, 52)
 			Keybind.Size = UDim2.new(0, 154, 0, 20)
@@ -435,7 +436,7 @@ function ret:Library(Name)
 			TextButton.TextSize = 15.000
 			TextButton.TextStrokeTransparency = 1
 
-			UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(36, 36, 36)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(36, 36, 36))}
+			UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(86, 87, 85)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(78, 77, 73))}
 			UIGradient.Rotation = 90
 			UIGradient.Parent = Keybind
 
