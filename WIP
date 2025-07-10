@@ -14,9 +14,6 @@ local settings = {
 	blur = true;
 	disablechat = true;
 	vis = false;
-	togkeybind = Enum.KeyCode.RightShift;
-	togblurtime = 0.75
-
 }
 
 function ret:Library(Name)
@@ -138,42 +135,24 @@ function ret:Library(Name)
         end)
 	end
 	
-local tweenService = game:GetService("TweenService") -- add this near the top of your script if not already
-local toggblurtime = settings.togblurtime
-uis.InputBegan:Connect(function(m3, m2)
-	if m3.KeyCode == settings.toggleKey and not m2 then
-		settings.vis = not settings.vis
-
-		for i, v in pairs(aui:GetChildren()) do
-			if v.Name:find("Window") then
-				v.Visible = settings.vis
-			end
-		end
-
-		-- Chat logic
-		if settings.disablechat then
-			game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Chat, not settings.vis)
-		end
-
-		-- Blur logic
-		if settings.blur then
-			if settings.vis then
-				Blur.Enabled = true
-				tweenService:Create(Blur, TweenInfo.new(toggblurtime, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = 24}):Play()
-			else
-				tweenService:Create(Blur, TweenInfo.new(toggblurtime, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Size = 0}):Play()
-				task.delay(0.4, function()
-					if not settings.vis then
+	uis.InputBegan:Connect(function(m3,m2)
+		if m3.KeyCode == Enum.KeyCode.P and not m2 then
+			settings.vis = not settings.vis
+			for i,v in pairs(aui:GetChildren()) do
+				if v.Name:find("Window") then
+					if settings.vis then
+						v.Visible = true
+						game:GetService('StarterGui'):SetCoreGuiEnabled(Enum.CoreGuiType.Chat, not settings.disablechat)
+						Blur.Enabled = settings.blur
+					else
+						v.Visible = false
+						game:GetService('StarterGui'):SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
 						Blur.Enabled = false
 					end
-				end)
+				end
 			end
-		else
-			Blur.Enabled = false
 		end
-	end
-end)
-
+	end)
 
 	function ui:Note(Title,Message,Error)
         local Note = NoteSample:Clone()
@@ -1678,14 +1657,14 @@ end
 
 _G.SetXathenaGradient = function(newGradient)
     if typeof(newGradient) ~= "ColorSequence" then
-        warn("SetXathenaGradient: Argument must be a ColorSequence.")
+        --warn("")
         return
     end
 
     local CoreGui = game:GetService("CoreGui")
     local ui = CoreGui:FindFirstChild("Athena ui Remake")
     if not ui then
-        warn("SetXathenaGradient: UI not found.")
+        --warn("")
         return
     end
 
@@ -1700,7 +1679,7 @@ _G.SetXathenaGradient = function(newGradient)
         end
     end
 
-    print("Gradient Updated", updated, "UIGradient(s)")
+    --print("Gradient Updated", updated, "UIGradients")
 end
 
 
