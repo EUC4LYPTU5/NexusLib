@@ -44,10 +44,10 @@ function ret:Library(Name)
 
 	Notifications.Name = "Notifications"
 	Notifications.Parent = aui
-	Notifications.AnchorPoint = Vector2.new(1, 0)
+	Notifications.AnchorPoint = Vector2.new(0, 0)
 	Notifications.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	Notifications.BackgroundTransparency = 1.000
-	Notifications.Position = UDim2.new(.13, 10, 1, -230)
+	Notifications.Position = UDim2.new(0, 10, 1, -230)
 	Notifications.Size = UDim2.new(0, 250, 0, 100)
 	Notifications.ZIndex = 16
 
