@@ -1,7 +1,5 @@
-
 --[[ because king is a fucking moron
 ]]
-	_G.XathenaGradient = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(76, 28, 138)), ColorSequenceKeypoint.new(1, Color3.fromRGB(131, 45, 161))}
 local uis = game:GetService("UserInputService")
 local run = game:GetService("RunService")
 
@@ -14,6 +12,7 @@ local settings = {
 	blur = true;
 	disablechat = true;
 	vis = false;
+	nexusgradient =  ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(76, 28, 138)), ColorSequenceKeypoint.new(1, Color3.fromRGB(131, 45, 161))}
 }
 
 function ret:Library(Name)
@@ -314,7 +313,6 @@ function ret:Library(Name)
 		end
 
 		function self:Toggle(name,b,f)
-			--local _G.XathenaGradient = _G.XathenaGradient --ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(46, 59, 145)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(39, 49, 126))}
 			local ofc = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(86, 87, 85)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(78, 77, 73))}
 			local tog = b
 			
@@ -342,7 +340,7 @@ function ret:Library(Name)
 			TextButton.TextStrokeTransparency = 1
 			TextButton.TextXAlignment = Enum.TextXAlignment.Left
 
-			UIGradient.Color = ((tog and _G.XathenaGradient) or (not tog and ofc))
+			UIGradient.Color = ((tog and settings.nexusgradient) or (not tog and ofc))
 			UIGradient.Rotation = 90
 			UIGradient.Parent = Toggle
 			
@@ -351,7 +349,7 @@ function ret:Library(Name)
 			TextButton.MouseButton1Down:Connect(function()
 				 pcall(task.spawn, f, not tog)
 				tog = not tog
-				UIGradient.Color = ((tog and _G.XathenaGradient) or (not tog and ofc))
+				UIGradient.Color = ((tog and settings.nexusgradient) or (not tog and ofc))
 			end)
 			resize()
 		end
@@ -522,7 +520,7 @@ function ret:Library(Name)
 			Slider_2.TextSize = 15.000
 			Slider_2.BackgroundTransparency = .2
 
-			OnToggleGradient.Color = _G.XathenaGradient
+			OnToggleGradient.Color = settings.nexusgradient
 			OnToggleGradient.Rotation = 90
 			OnToggleGradient.Name = "OnToggleGradient"
 			OnToggleGradient.Parent = Slider_2
@@ -840,7 +838,6 @@ function ret:Library(Name)
 		function self:ToggleDropdown(n,de,fu)
 			local self2 = {}
 
-			--local _G.XathenaGradient = _G.XathenaGradient
 			local ofc = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(86, 87, 85)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(78, 77, 73))}
 			local togg = de
 
@@ -909,14 +906,14 @@ function ret:Library(Name)
 			UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 			UIListLayout.Padding = UDim.new(0, 4)
 
-			UIGradient_2.Color = ((togg and _G.XathenaGradient) or (not togg and ofc))
+			UIGradient_2.Color = ((togg and settings.nexusgradient) or (not togg and ofc))
 			UIGradient_2.Rotation = 90
 			UIGradient_2.Parent = Dropdown
 	
 			TextLabel.MouseButton1Down:Connect(function()
 				pcall(task.spawn, fu, not togg)
 				togg = not togg
-				UIGradient_2.Color = ((togg and _G.XathenaGradient) or (not togg and ofc))
+				UIGradient_2.Color = ((togg and settings.nexusgradient) or (not togg and ofc))
 			end)
 
 			if de then pcall(task.spawn, fu, de) end
@@ -970,7 +967,6 @@ function ret:Library(Name)
 			end
 
 			function self2:Toggle(name,b,f)
-				--local _G.XathenaGradient = _G.XathenaGradient --ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(46, 59, 145)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(39, 49, 126))}
 				local ofc = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(86, 87, 85)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(78, 77, 73))}
 				local tog = b
 				
@@ -998,7 +994,7 @@ function ret:Library(Name)
 				TextButton.TextStrokeTransparency = 1
 				TextButton.TextXAlignment = Enum.TextXAlignment.Left
 	
-				UIGradient.Color = ((tog and _G.XathenaGradient) or (not tog and ofc))
+				UIGradient.Color = ((tog and settings.nexusgradient) or (not tog and ofc))
 				UIGradient.Rotation = 90
 				UIGradient.Parent = Toggle
 				
@@ -1007,7 +1003,7 @@ function ret:Library(Name)
 				TextButton.MouseButton1Down:Connect(function()
 					pcall(task.spawn, f, not tog)
 					tog = not tog
-					UIGradient.Color = ((tog and _G.XathenaGradient) or (not tog and ofc))
+					UIGradient.Color = ((tog and settings.nexusgradient) or (not tog and ofc))
 				end)
 			end
 	
@@ -1142,7 +1138,7 @@ function ret:Library(Name)
 				Slider_2.TextSize = 15.000
 				Slider_2.BackgroundTransparency = .2
 	
-				OnToggleGradient.Color = _G.XathenaGradient --ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(46, 59, 145)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(39, 49, 126))}
+				OnToggleGradient.Color = settings.nexusgradient --ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(46, 59, 145)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(39, 49, 126))}
 				OnToggleGradient.Rotation = 90
 				OnToggleGradient.Name = "OnToggleGradient"
 				OnToggleGradient.Parent = Slider_2
@@ -1332,7 +1328,6 @@ function ret:Library(Name)
 			function self2:Toggle(name,b,f)
 				g = g + 1
 				if g <= 2 then
-					--local _G.XathenaGradient = _G.XathenaGradient --ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(46, 59, 145)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(39, 49, 126))}
 					local ofc = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(86, 87, 85)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(78, 77, 73))}
 					local tog = b
 					
@@ -1360,7 +1355,7 @@ function ret:Library(Name)
 					TextButton.TextStrokeTransparency = 1
 					TextButton.TextXAlignment = Enum.TextXAlignment.Left
 		
-					UIGradient.Color = ((tog and _G.XathenaGradient) or (not tog and ofc))
+					UIGradient.Color = ((tog and settings.nexusgradient) or (not tog and ofc))
 					UIGradient.Rotation = 90
 					UIGradient.Parent = Toggle
 					
@@ -1369,7 +1364,7 @@ function ret:Library(Name)
 					TextButton.MouseButton1Down:Connect(function()
 						pcall(task.spawn, f, not tog) 
 						tog = not tog
-						UIGradient.Color = ((tog and _G.XathenaGradient) or (not tog and ofc))
+						UIGradient.Color = ((tog and settings.nexusgradient) or (not tog and ofc))
 					end)
 				end
 			end
@@ -1513,7 +1508,7 @@ function ret:Library(Name)
 					Slider_2.TextSize = 15.000
 					Slider_2.BackgroundTransparency = .2
 		
-					OnToggleGradient.Color = _G.XathenaGradient --ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(46, 59, 145)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(39, 49, 126))}
+					OnToggleGradient.Color = settings.nexusgradient --ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(46, 59, 145)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(39, 49, 126))}
 					OnToggleGradient.Rotation = 90
 					OnToggleGradient.Name = "OnToggleGradient"
 					OnToggleGradient.Parent = Slider_2
@@ -1655,32 +1650,29 @@ function ret:Library(Name)
 	return ui
 end
 
-_G.SetXathenaGradient = function(newGradient)
+settings.setgradient = function(newGradient)
     if typeof(newGradient) ~= "ColorSequence" then
-        warn("SetXathenaGradient: Argument must be a ColorSequence.")
         return
     end
 
     local CoreGui = game:GetService("CoreGui")
     local ui = CoreGui:FindFirstChild("Athena ui Remake")
+
     if not ui then
-        warn("SetXathenaGradient: UI not found.")
         return
     end
-
-    local oldGradient = _G.XathenaGradient
-    _G.XathenaGradient = newGradient
+		
+    local oldGradient = settings.nexusgradient
+    settings.nexusgradient = newGradient
 
     local updated = 0
+
     for _, obj in ipairs(ui:GetDescendants()) do
         if obj:IsA("UIGradient") and tostring(obj.Color) == tostring(oldGradient) then
             obj.Color = newGradient
             updated += 1
         end
     end
-
-    print("Gradient Updated", updated, "UIGradient(s)")
 end
-
 
 return ret, settings
