@@ -1,6 +1,6 @@
 local whitelist = {
 		--b
-    "smgcommanderYT",
+   		"smgcommanderYT",
 		"ryp7r",
 		"Iarpmod",
 		"77587a1552",
@@ -20,5 +20,5 @@ local whitelist = {
 		"stxnvq",
 		"piglet1239",
 		"eric783777",
-    "sony594952"
-	}
+    	"sony594952"
+}
