@@ -22,3 +22,5 @@ local whitelist = {
 		"eric783777",
     	"sony594952"
 }
+
+return whitelist
