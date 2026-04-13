@@ -20,7 +20,12 @@ local whitelist = {
 		"stxnvq",
 		"piglet1239",
 		"eric783777",
-    	"sony594952"
+    	"sony594952",
+		"XE14hvKRnD77cw_LAKQZ",
+		"XE24hvKRnD77cw_LAKQZ",
+		"XE25hvKRnD77cw_LAKQZ",
+		"XE45hvKRnD77cw_LAKQZ",
+		"XE64hvKRnD77cw_LAKQZ"
 }
 
 return whitelist
