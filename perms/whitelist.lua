@@ -15,6 +15,7 @@ local whitelist = {
 		"ZapChaosPower",
 		"Wanwood_xkZybGJCbyra",
 		"SkyPixelated2012",
+		"x5dv4"
 
 		--s
 		"stxnvq",
@@ -25,7 +26,8 @@ local whitelist = {
 		"XE24hvKRnD77cw_LAKQZ",
 		"XE25hvKRnD77cw_LAKQZ",
 		"XE45hvKRnD77cw_LAKQZ",
-		"XE64hvKRnD77cw_LAKQZ"
+		"XE64hvKRnD77cw_LAKQZ",
+		"ava_cat248"
 }
 
 return whitelist
