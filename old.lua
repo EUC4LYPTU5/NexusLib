@@ -1,4 +1,3 @@
-
 --[[ because king is a fucking moron
 ]]
 local uis = game:GetService("UserInputService")
