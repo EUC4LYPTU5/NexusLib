@@ -16,6 +16,7 @@ local whitelist = {
 		"Wanwood_xkZybGJCbyra",
 		"SkyPixelated2012",
 		"x5dv4",
+		"lcn0r",
 
 		--s
 		"stxnvq",
