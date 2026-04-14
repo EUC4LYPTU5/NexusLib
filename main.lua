@@ -3,17 +3,22 @@
 local uis = game:GetService("UserInputService")
 local run = game:GetService("RunService")
 
-if game:GetService("CoreGui"):FindFirstChild("Athena ui Remake") then
-	game:GetService("CoreGui"):FindFirstChild("Athena ui Remake"):Destroy()
-end
-
 local ret = {}
 local settings = {
+	screenguiname = "Athena ui Remake";
 	blur = true;
 	disablechat = true;
 	vis = false;
-	nexusgradient =  ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(76, 28, 138)), ColorSequenceKeypoint.new(1, Color3.fromRGB(131, 45, 161))}
+	nexusgradient = ColorSequence.new{
+		ColorSequenceKeypoint.new(0, Color3.fromRGB(76, 28, 138)),
+		ColorSequenceKeypoint.new(1, Color3.fromRGB(131, 45, 161))
+	};
+	guikeybind = Enum.KeyCode.P
 }
+
+if game:GetService("CoreGui"):FindFirstChild(settings.screenguiname) then
+	game:GetService("CoreGui"):FindFirstChild(settings.screenguiname):Destroy()
+end
 
 function ret:Library(Name)
 	local ui = {}
@@ -22,7 +27,7 @@ function ret:Library(Name)
 
 	aui.Parent = game:GetService("CoreGui")
 	aui.IgnoreGuiInset = true
-	aui.Name = "Athena ui Remake"
+	aui.Name = settings.screenguiname or "Athena ui Remake"
 
 	local rtbl = {}
 	local NormalColor = Color3.new(0,0,0)
@@ -135,7 +140,7 @@ function ret:Library(Name)
 	end
 	
 	uis.InputBegan:Connect(function(m3,m2)
-		if m3.KeyCode == Enum.KeyCode.P and not m2 then
+		if m3.KeyCode == (settings.guikeybind or Enum.KeyCode.P) and not m2 then
 			settings.vis = not settings.vis
 			for i,v in pairs(aui:GetChildren()) do
 				if v.Name:find("Window") then
@@ -475,7 +480,7 @@ function ret:Library(Name)
 			resize()
 		end
 
-		function self:Slider(n,min,max,default,precise,f)
+		function self:Slider(n,min,max,step,default,f)
 			local Slider = Instance.new("Frame")
 			local SliderFrame = Instance.new("TextButton")
 			local UIGradient = Instance.new("UIGradient")
@@ -527,34 +532,44 @@ function ret:Library(Name)
 
 			uis.InputEnded:Connect(function(m)
     			if m.UserInputType == Enum.UserInputType.MouseButton1 then
-    				if con then
-    					con:Disconnect()
-    					con = nil
-    				end
-    			end
-    		end)
-    
-            local function move()
-                if not con then
-        			con = run.Stepped:Connect(function()
-        				local m = uis:GetMouseLocation()
-        				local r = math.clamp(((m.X-Slider_2.AbsoluteSize.X) - SliderFrame.AbsolutePosition.X)/(SliderFrame.AbsoluteSize.X),0,1)
-        				local vtn = min + (max - min)*r
-        
-        				vtn = math.clamp(vtn,min,max)
-                        Slider_2.Position = UDim2.new(r*.92, 0, 0, 1)
-        
-        				if not precise then
-							vtn = math.round(vtn)
-						else
-							vtn = tonumber(tostring(vtn):sub(1,4))
+							if con then
+								con:Disconnect()
+								con = nil
+							end
 						end
+					end)
+				
+					--updated: fixed and added rounding, removed shit args like precise,
+					local function move()
+						if not con then
+							con = run.Stepped:Connect(function()
+								local mouseX = uis:GetMouseLocation().X
+								local framePos = SliderFrame.AbsolutePosition.X
+								local frameSize = SliderFrame.AbsoluteSize.X
 
-						SliderFrame.Text = tostring(n)..": "..tostring(vtn)
-						pcall(task.spawn, f, vtn)
-        			end)
-                end
-            end
+								local r = math.clamp((mouseX - framePos) / frameSize, 0, 1)
+								local vtn = min + (max - min) * r
+								vtn = math.clamp(vtn, min, max)
+
+								Slider_2.Position = UDim2.new(r * 0.92, 0, 0, 1)
+
+								if step then
+									vtn = math.round(vtn / step) * step
+
+									local decimals = 0
+									local match = tostring(step):match("%.(%d+)")
+									if match then
+											decimals = #match
+									end
+									vtn = tonumber(string.format("%." .. decimals .. "f", vtn))
+								else
+									vtn = math.round(vtn) 
+								end
+								SliderFrame.Text = tostring(n) .. ": " .. tostring(vtn)
+								pcall(task.spawn, f, vtn)
+							end)
+						end
+					end
             
     		SliderFrame.MouseButton1Down:Connect(move)
     		Slider_2.MouseButton1Down:Connect(move)
@@ -1093,7 +1108,7 @@ function ret:Library(Name)
 				end)
 			end
 	
-			function self2:Slider(n,min,max,default,precise,f)
+			function self2:Slider(n,min,max,step,default,f)
 				local Slider = Instance.new("Frame")
 				local SliderFrame = Instance.new("TextButton")
 				local UIGradient = Instance.new("UIGradient")
@@ -1152,27 +1167,37 @@ function ret:Library(Name)
 					end
 				end)
 		
-				local function move()
-					if not con then
-						con = run.Stepped:Connect(function()
-							local m = uis:GetMouseLocation()
-							local r = math.clamp(((m.X-Slider_2.AbsoluteSize.X) - SliderFrame.AbsolutePosition.X)/(SliderFrame.AbsoluteSize.X),0,1)
-							local vtn = min + (max - min)*r
-			
-							vtn = math.clamp(vtn,min,max)
-							Slider_2.Position = UDim2.new(r*.92, 0, 0, 1)
-			
-							if not precise then
-								vtn = math.round(vtn)
-							else
-								vtn = tonumber(tostring(vtn):sub(1,4))
-							end
+					--updated: fixed and added rounding, removed shit args like precise,
+					local function move()
+						if not con then
+							con = run.Stepped:Connect(function()
+								local mouseX = uis:GetMouseLocation().X
+								local framePos = SliderFrame.AbsolutePosition.X
+								local frameSize = SliderFrame.AbsoluteSize.X
 
-							SliderFrame.Text = tostring(n)..": "..tostring(vtn)
-							pcall(task.spawn, f, vtn) 
-						end)
+								local r = math.clamp((mouseX - framePos) / frameSize, 0, 1)
+								local vtn = min + (max - min) * r
+								vtn = math.clamp(vtn, min, max)
+
+								Slider_2.Position = UDim2.new(r * 0.92, 0, 0, 1)
+
+								if step then
+									vtn = math.round(vtn / step) * step
+
+									local decimals = 0
+									local match = tostring(step):match("%.(%d+)")
+									if match then
+											decimals = #match
+									end
+									vtn = tonumber(string.format("%." .. decimals .. "f", vtn))
+								else
+									vtn = math.round(vtn) 
+								end
+								SliderFrame.Text = tostring(n) .. ": " .. tostring(vtn)
+								pcall(task.spawn, f, vtn)
+							end)
+						end
 					end
-				end
 				
 				SliderFrame.MouseButton1Down:Connect(move)
 				Slider_2.MouseButton1Down:Connect(move)
@@ -1460,8 +1485,8 @@ function ret:Library(Name)
 					end)
 				end
 			end
-	
-			function self2:Slider(n,min,max,default,precise,f)
+
+			function self2:Slider(n,min,max,step,default,f)
 				g = g + 1
 				if g <= 2 then
 					local Slider = Instance.new("Frame")
@@ -1522,24 +1547,34 @@ function ret:Library(Name)
 						end
 					end)
 			
+					--updated: fixed and added rounding, removed shit args like precise,
 					local function move()
 						if not con then
 							con = run.Stepped:Connect(function()
-								local m = uis:GetMouseLocation()
-								local r = math.clamp(((m.X-Slider_2.AbsoluteSize.X) - SliderFrame.AbsolutePosition.X)/(SliderFrame.AbsoluteSize.X),0,1)
-								local vtn = min + (max - min)*r
-				
-								vtn = math.clamp(vtn,min,max)
-								Slider_2.Position = UDim2.new(r*.92, 0, 0, 1)
-				
-								if not precise then
-									vtn = math.round(vtn)
+								local mouseX = uis:GetMouseLocation().X
+								local framePos = SliderFrame.AbsolutePosition.X
+								local frameSize = SliderFrame.AbsoluteSize.X
+
+								local r = math.clamp((mouseX - framePos) / frameSize, 0, 1)
+								local vtn = min + (max - min) * r
+								vtn = math.clamp(vtn, min, max)
+
+								Slider_2.Position = UDim2.new(r * 0.92, 0, 0, 1)
+
+								if step then
+									vtn = math.round(vtn / step) * step
+
+									local decimals = 0
+									local match = tostring(step):match("%.(%d+)")
+									if match then
+											decimals = #match
+									end
+									vtn = tonumber(string.format("%." .. decimals .. "f", vtn))
 								else
-									vtn = tonumber(tostring(vtn):sub(1,4))
+									vtn = math.round(vtn) 
 								end
-	
-								SliderFrame.Text = tostring(n)..": "..tostring(vtn)
-								pcall(task.spawn, f, vtn) 
+								SliderFrame.Text = tostring(n) .. ": " .. tostring(vtn)
+								pcall(task.spawn, f, vtn)
 							end)
 						end
 					end
@@ -1656,7 +1691,7 @@ settings.setgradient = function(newGradient)
     end
 
     local CoreGui = game:GetService("CoreGui")
-    local ui = CoreGui:FindFirstChild("Athena ui Remake")
+    local ui = CoreGui:FindFirstChild(settings.screenguiname)
 
     if not ui then
         return
