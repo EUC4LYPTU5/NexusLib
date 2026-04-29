@@ -15,7 +15,8 @@ function ServerInfoLib.new()
 
 	local ServerInfo = Instance.new("ScreenGui")
 	ServerInfo.Name = "ServerInfo"
-	ServerInfo.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	ServerInfo.Parent = game:GetService("CoreGui")
+	ServerInfo.ResetOnSpawn = false
 	ServerInfo.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 	local MainFrame = Instance.new("Frame")
