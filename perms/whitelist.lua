@@ -28,7 +28,8 @@ local whitelist = {
 		"XE25hvKRnD77cw_LAKQZ",
 		"XE45hvKRnD77cw_LAKQZ",
 		"XE64hvKRnD77cw_LAKQZ",
-		"ava_cat248"
+		"ava_cat248",
+		"25x974"
 }
 
 return whitelist
